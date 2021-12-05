@@ -1,0 +1,35 @@
+# server:
+#   port: 1010
+
+spring:
+
+  application:
+    name: inventory
+
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  cloud:
+    stream:
+      function:
+        definition: proc
+
+      bindings:
+        proc-out-0:
+          contentType: application/json
+          destination: out
+          producer:
+            requiredGroups: ntf,view
+        proc-in-0:
+          contentType: application/json
+          destination: in
+          group: inventory
+      
+
+
+
+

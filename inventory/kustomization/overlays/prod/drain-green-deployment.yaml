@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-green
+  labels:
+    app: inventory
+spec:
+  # Scaling
+  replicas: 0
+  selector:
+    matchLabels:
+      app: inventory
+  template:
+    metadata:
+      labels:
+        app: inventory
+    spec:
+      containers:
+      - name: inventory
+        image: hylmar/inventory
+        imagePullPolicy: Never
+       

@@ -2,11 +2,10 @@
 for /f "delims=" %%A in ('"mvn help:evaluate -Dexpression=project.version -q -DforceStdout"') do set version=%%A
 @echo on
 echo version is %version%
+echo %version% > k8s/.ver
 
 call mvn clean install
 call mvn jib:build
-
-"k8s/.ver" echo(%version%
 
 cd ./kustomization/overlays/prod
 kustomize edit set image hylmar/inventory:CHANGEME=:%version% & 

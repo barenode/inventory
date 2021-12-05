@@ -28,7 +28,7 @@ spec:
         app: inventory
     spec:
       containers:
-      - image: hylmar/inventory:1.0.5-SNAPSHOT
+      - image: hylmar/inventory:1.0.6-SNAPSHOT
         name: inventory
 ---
 apiVersion: apps/v1

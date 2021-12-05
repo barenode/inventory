@@ -6,6 +6,8 @@ echo version is %version%
 call mvn clean install
 call mvn jib:build
 
+"k8s/.ver" echo(%version%
+
 cd ./kustomization/overlays/prod
 kustomize edit set image hylmar/inventory:CHANGEME=:%version% & 
 kustomize build . -o ../../../k8s/prod.yaml

@@ -16,7 +16,7 @@ spec:
         app: inventory-green
     spec:
       containers:
-      - name: inventory
+      - name: inventory-green
         image: hylmar/inventory
         imagePullPolicy: Never
        

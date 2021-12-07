@@ -50,4 +50,4 @@ spec:
       containers:
       - image: hylmar/inventory
         imagePullPolicy: Never
-        name: inventory
+        name: inventory-green

@@ -6,9 +6,9 @@ echo version green is %version_green%
 for /f "delims=" %%A in (k8s/.ver) do set version_blue=%%A
 echo version blue is %version_blue%
 
-@REM @REM TODO: join mvn
-@REM call mvn clean install
-@REM call mvn jib:build
+@REM TODO: join mvn
+call mvn clean install
+call mvn jib:build
 
 cd ./kustomization/overlays/prod-green
 kustomize edit set image hylmar/inventory:CHANGEME=:%version_blue% & 

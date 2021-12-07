@@ -8,4 +8,4 @@ replicas:
   name: inventory
 images:
 - name: hylmar/inventory:CHANGEME
-  newTag: 1.0.10-SNAPSHOT
+  newTag: 1.0.11-SNAPSHOT

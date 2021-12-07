@@ -6,9 +6,13 @@ resources:
 replicas:
 - count: 3
   name: inventory
+- count: 3
+  name: inventory-green
 images:
 - name: hylmar/inventory:CHANGEME
-  newTag: 1.0.1-SNAPSHOT
+  newTag: 1.0.7-SNAPSHOT
+- name: hylmar/inventory:GREEN
+  newTag: 1.0.8-SNAPSHOT
 patches:
 - patch: |-
     - op: replace

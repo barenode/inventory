@@ -3,20 +3,19 @@ kind: Deployment
 metadata:
   name: inventory-green
   labels:
-    app: inventory
+    app: inventory-green
 spec:
   # Scaling
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
-      app: inventory
+      app: inventory-green
   template:
     metadata:
       labels:
-        app: inventory
+        app: inventory-green
     spec:
       containers:
-      - name: inventory
-        image: hylmar/inventory
-        imagePullPolicy: Never
+      - name: inventory-green
+        image: hylmar/inventory:GREEN
        

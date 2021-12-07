@@ -35,17 +35,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: inventory
+    app: inventory-green
   name: inventory-green
 spec:
   replicas: 0
   selector:
     matchLabels:
-      app: inventory
+      app: inventory-green
   template:
     metadata:
       labels:
-        app: inventory
+        app: inventory-green
     spec:
       containers:
       - image: hylmar/inventory

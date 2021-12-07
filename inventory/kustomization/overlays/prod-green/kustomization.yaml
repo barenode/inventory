@@ -12,7 +12,7 @@ images:
 - name: hylmar/inventory:CHANGEME
   newTag: 1.0.8-SNAPSHOT
 - name: hylmar/inventory:GREEN
-  newTag: 1.0.9-SNAPSHOT
+  newTag: 1.0.10-SNAPSHOT
 patches:
 - patch: |-
     - op: replace

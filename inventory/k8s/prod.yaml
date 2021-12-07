@@ -48,5 +48,5 @@ spec:
         app: inventory-green
     spec:
       containers:
-      - image: hylmar/inventory:1.0.9-SNAPSHOT
+      - image: hylmar/inventory:1.0.10-SNAPSHOT
         name: inventory-green

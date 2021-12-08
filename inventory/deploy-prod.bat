@@ -4,9 +4,7 @@ for /f "delims=" %%A in ('"mvn help:evaluate -Dexpression=project.version -q -Df
 echo version is %version%
 echo %version% > k8s/.ver
 
-@REM TODO: join mvn
-call mvn clean install
-call mvn jib:build
+call mvn deploy
 
 cd ./kustomization/overlays/prod
 kustomize edit set image hylmar/inventory:BLUE=:%version% & 

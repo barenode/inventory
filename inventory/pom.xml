@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>cz.aag</groupId>
 	<artifactId>inventory</artifactId>
-	<version>1.0.13-SNAPSHOT</version>
+	<version>1.0.14-SNAPSHOT</version>
 	<name>inventory</name>
 
 	<properties>
@@ -78,6 +78,15 @@
 						<image>hylmar/${project.artifactId}:${project.version}</image>
 					</to>
 				</configuration>
+				<executions>
+					<execution>
+						<id>build</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

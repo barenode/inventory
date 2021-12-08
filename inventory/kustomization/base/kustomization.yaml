@@ -4,5 +4,6 @@ kind: Kustomization
 
 resources:
   - deployment.yaml
+  - deployment-green.yaml
   - service.yaml
 

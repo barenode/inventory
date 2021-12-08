@@ -17,5 +17,5 @@ spec:
     spec:
       containers:
       - name: inventory
-        image: hylmar/inventory:CHANGEME
-       
+        image: hylmar/inventory:BLUE
+        imagePullPolicy: Always

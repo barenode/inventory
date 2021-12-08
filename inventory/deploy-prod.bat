@@ -10,6 +10,7 @@ call mvn jib:build
 
 cd ./kustomization/overlays/prod
 kustomize edit set image hylmar/inventory:BLUE=:%version% & 
+kustomize edit set image hylmar/inventory:GREEN=:%version% & 
 kustomize build . -o ../../../k8s/prod.yaml
 cd ../../..
 

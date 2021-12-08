@@ -11,10 +11,11 @@ images:
 - name: hylmar/inventory:BLUE
   newTag: 1.0.13-SNAPSHOT
 - name: hylmar/inventory:GREEN
+  newTag: 1.0.13-SNAPSHOT
 patches:
 - patch: |-
     - op: replace
-      path: /spec/template/spec/container/imagePullPolicy
+      path: /spec/template/spec/containers/0/imagePullPolicy
       value: Never
   target:
     kind: Deployment

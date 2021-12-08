@@ -28,7 +28,8 @@ spec:
         app: inventory
     spec:
       containers:
-      - image: hylmar/inventory:1.0.12-SNAPSHOT
+      - image: hylmar/inventory:1.0.13-SNAPSHOT
+        imagePullPolicy: Always
         name: inventory
 ---
 apiVersion: apps/v1
@@ -48,6 +49,6 @@ spec:
         app: inventory-green
     spec:
       containers:
-      - image: hylmar/inventory
+      - image: hylmar/inventory:1.0.13-SNAPSHOT
         imagePullPolicy: Never
         name: inventory-green

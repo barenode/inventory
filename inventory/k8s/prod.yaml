@@ -8,7 +8,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: inventory-green
+    app: inventory
   type: NodePort
 ---
 apiVersion: apps/v1
@@ -28,7 +28,7 @@ spec:
         app: inventory
     spec:
       containers:
-      - image: hylmar/inventory:1.0.14-SNAPSHOT
+      - image: hylmar/inventory:1.0.15-SNAPSHOT
         imagePullPolicy: Always
         name: inventory
 ---
@@ -39,7 +39,7 @@ metadata:
     app: inventory-green
   name: inventory-green
 spec:
-  replicas: 3
+  replicas: 0
   selector:
     matchLabels:
       app: inventory-green
@@ -50,5 +50,5 @@ spec:
     spec:
       containers:
       - image: hylmar/inventory:1.0.15-SNAPSHOT
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         name: inventory-green

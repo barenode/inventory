@@ -9,9 +9,9 @@ replicas:
   name: inventory-green
 images:
 - name: hylmar/inventory:BLUE
-  newTag: 1.0.17-SNAPSHOT
+  newTag: 1.0.18-SNAPSHOT
 - name: hylmar/inventory:GREEN
-  newTag: 1.0.17-SNAPSHOT
+  newTag: 1.0.18-SNAPSHOT
 patches:
 - patch: |-
     - op: replace

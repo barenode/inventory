@@ -1,4 +1,14 @@
 apiVersion: v1
+data:
+  RABBITMQ_HOST: rabbitmq.rabbitmq
+  RABBITMQ_PASSWORD: UM944fqb265dM4GtGFPPCI9rZZPIUosD
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_USERNAME: default_user_D3Iwgkfj1qy8Fdseip9
+kind: ConfigMap
+metadata:
+  name: inventory-configmap
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: inventory
@@ -28,7 +38,32 @@ spec:
         app: inventory
     spec:
       containers:
-      - image: hylmar/inventory:1.0.17-SNAPSHOT
+      - env:
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: RABBITMQ_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_HOST
+              name: inventory-configmap
+        - name: RABBITMQ_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_PORT
+              name: inventory-configmap
+        - name: RABBITMQ_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_USERNAME
+              name: inventory-configmap
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_PASSWORD
+              name: inventory-configmap
+        image: hylmar/inventory:1.0.18-SNAPSHOT
         imagePullPolicy: Always
         name: inventory
 ---
@@ -49,7 +84,32 @@ spec:
         app: inventory-green
     spec:
       containers:
-      - image: hylmar/inventory:1.0.17-SNAPSHOT
+      - env:
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: RABBITMQ_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_HOST
+              name: inventory-configmap
+        - name: RABBITMQ_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_PORT
+              name: inventory-configmap
+        - name: RABBITMQ_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_USERNAME
+              name: inventory-configmap
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_PASSWORD
+              name: inventory-configmap
+        image: hylmar/inventory:1.0.18-SNAPSHOT
         imagePullPolicy: Never
         name: inventory-green
 ---

@@ -1,17 +1,13 @@
-# server:
-#   port: 1010
-
 spring:
 
   application:
     name: inventory
 
-
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
 
   cloud:
     stream:
@@ -21,12 +17,10 @@ spring:
       bindings:
         proc-out-0:
           contentType: application/json
-          destination: out
-          producer:
-            requiredGroups: ntf,view
+          destination: inventory-out
         proc-in-0:
           contentType: application/json
-          destination: in
+          destination: inventory-in
           group: inventory
       
 

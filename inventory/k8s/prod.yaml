@@ -28,7 +28,7 @@ spec:
         app: inventory
     spec:
       containers:
-      - image: hylmar/inventory:1.0.16-SNAPSHOT
+      - image: hylmar/inventory:1.0.17-SNAPSHOT
         imagePullPolicy: Always
         name: inventory
 ---
@@ -49,7 +49,7 @@ spec:
         app: inventory-green
     spec:
       containers:
-      - image: hylmar/inventory:1.0.16-SNAPSHOT
+      - image: hylmar/inventory:1.0.17-SNAPSHOT
         imagePullPolicy: Never
         name: inventory-green
 ---
@@ -57,7 +57,7 @@ apiVersion: rabbitmq.com/v1beta1
 kind: Queue
 metadata:
   name: test-queue
-  namespace: inventory
+  namespace: rabbitmq
 spec:
   name: test-queue
   rabbitmqClusterReference:

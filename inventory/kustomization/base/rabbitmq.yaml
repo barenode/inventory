@@ -32,6 +32,7 @@ spec:
   source: test-exchange # an existing exchange
   destination: test-queue # an existing queue
   destinationType: queue # can be 'queue' or 'exchange'
+  routingKey: v2
   rabbitmqClusterReference:
     name: rabbitmq # cluster name
     namespace: rabbitmq

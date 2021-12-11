@@ -63,7 +63,7 @@ spec:
             configMapKeyRef:
               key: RABBITMQ_PASSWORD
               name: inventory-configmap
-        image: hylmar/inventory:1.0.18-SNAPSHOT
+        image: hylmar/inventory:1.0.19-SNAPSHOT
         imagePullPolicy: Always
         name: inventory
 ---
@@ -109,7 +109,7 @@ spec:
             configMapKeyRef:
               key: RABBITMQ_PASSWORD
               name: inventory-configmap
-        image: hylmar/inventory:1.0.18-SNAPSHOT
+        image: hylmar/inventory:1.0.19-SNAPSHOT
         imagePullPolicy: Never
         name: inventory-green
 ---
@@ -124,6 +124,7 @@ spec:
   rabbitmqClusterReference:
     name: rabbitmq
     namespace: rabbitmq
+  routingKey: v2
   source: test-exchange
 ---
 apiVersion: rabbitmq.com/v1beta1

@@ -6,4 +6,4 @@ resources:
   - deployment.yaml
   - deployment-green.yaml
   - service.yaml
-
+  - rabbitmq.yaml

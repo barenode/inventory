@@ -54,6 +54,33 @@ spec:
         name: inventory-green
 ---
 apiVersion: rabbitmq.com/v1beta1
+kind: Binding
+metadata:
+  name: test-binding
+  namespace: rabbitmq
+spec:
+  destination: test-queue
+  destinationType: queue
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+  source: test-exchange
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: test-exchange
+  namespace: rabbitmq
+spec:
+  autoDelete: false
+  durable: true
+  name: test-exchange
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+  type: direct
+---
+apiVersion: rabbitmq.com/v1beta1
 kind: Queue
 metadata:
   name: test-queue

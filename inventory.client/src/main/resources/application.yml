@@ -23,12 +23,13 @@ spring:
       bindings:
         orderEventProducer-out-0:
           contentType: application/json
-          destination: inventory-inx
+          destination: inventory-inxx
 
       rabbit:
         bindings:
           orderEventProducer-out-0:
-            declareExchange: false
+            producer:
+              declareExchange: false
 
 
 

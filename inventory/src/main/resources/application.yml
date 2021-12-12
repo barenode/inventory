@@ -21,12 +21,12 @@ spring:
         proc-in-0:
           contentType: application/json
           destination: inventory-in
-          group: v2
+          group: v3
 
       rabbit:
         bindings:
           proc-in-0:
-            producer:
+            consumer:
               bindQueue: false
               declareExchange: false
 

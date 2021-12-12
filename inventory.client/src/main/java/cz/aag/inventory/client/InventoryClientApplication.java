@@ -24,7 +24,7 @@ public class InventoryClientApplication {
 
 	@Bean
 	Consumer<OrderEvent> orderEventConsumer(Sinks.Many<OrderEvent> orderEventSink) {
-		return orderEventSink::tryEmitNext;
+		return (e) ->  orderEventSink.emitNext(e, Sinks.EmitFailureHandler.FAIL_FAST);
 	}
 
 	public static void main(String[] args) {

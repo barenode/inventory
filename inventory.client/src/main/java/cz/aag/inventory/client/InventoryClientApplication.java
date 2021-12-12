@@ -17,7 +17,7 @@ public class InventoryClientApplication {
 
 	@Bean
 	Sinks.Many<OrderEvent> orderEventSink() {
-		return Sinks.many().multicast().directAllOrNothing();//.onBackpressureBuffer();
+		return Sinks.many().multicast().onBackpressureBuffer();
 	}
 
 	@Bean
@@ -28,11 +28,9 @@ public class InventoryClientApplication {
 	@Bean
 	Consumer<OrderEvent> orderEventConsumer(Sinks.Many<OrderEvent> orderEventSink) {
 		return (e) ->  {
-			logger.info("emiting event ...");
-			orderEventSink.emitNext(e, (signalType, emission) -> {
-				logger.info("signalType [" + signalType + "], emission: " + emission);
-				return false;
-			});
+			logger.info("emitting event ...");
+			Sinks.EmitResult result = orderEventSink.tryEmitNext(e);
+			logger.info("emit result: " + result);
 		};
 	}
 

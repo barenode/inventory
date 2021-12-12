@@ -15,6 +15,7 @@ spec:
       labels:
         app: inventory-green
     spec:
+      revisionHistoryLimit: 0
       containers:
       - name: inventory-green
         image: hylmar/inventory:GREEN

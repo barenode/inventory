@@ -63,9 +63,10 @@ spec:
             configMapKeyRef:
               key: RABBITMQ_PASSWORD
               name: inventory-configmap
-        image: hylmar/inventory:1.0.19-SNAPSHOT
+        image: hylmar/inventory:1.0.20-SNAPSHOT
         imagePullPolicy: Always
         name: inventory
+      revisionHistoryLimit: 0
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -109,9 +110,10 @@ spec:
             configMapKeyRef:
               key: RABBITMQ_PASSWORD
               name: inventory-configmap
-        image: hylmar/inventory:1.0.19-SNAPSHOT
+        image: hylmar/inventory:1.0.20-SNAPSHOT
         imagePullPolicy: Never
         name: inventory-green
+      revisionHistoryLimit: 0
 ---
 apiVersion: rabbitmq.com/v1beta1
 kind: Binding

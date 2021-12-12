@@ -17,7 +17,7 @@ public class InventoryClientApplication {
 
 	@Bean
 	Sinks.Many<OrderEvent> orderEventSink() {
-		return Sinks.many().multicast().onBackpressureBuffer();
+		return Sinks.many().multicast().directAllOrNothing();
 	}
 
 	@Bean

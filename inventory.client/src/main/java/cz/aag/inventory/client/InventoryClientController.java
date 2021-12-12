@@ -25,6 +25,6 @@ public class InventoryClientController {
     @GetMapping("/produce")
     public void produce() {
         logger.info("producing event");
-        orderEventConsumer.accept(new OrderEvent());
+        orderEventConsumer.accept(new OrderEvent("X"));
     }
 }

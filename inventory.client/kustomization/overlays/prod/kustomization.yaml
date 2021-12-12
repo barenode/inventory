@@ -17,6 +17,6 @@ patches:
     name: inventory-client-green
 images:
 - name: hylmar/inventory-client:BLUE
-  newTag: 1.0.1-SNAPSHOT
+  newTag: 1.0.2-SNAPSHOT
 - name: hylmar/inventory-client:GREEN
-  newTag: 1.0.1-SNAPSHOT
+  newTag: 1.0.2-SNAPSHOT

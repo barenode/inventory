@@ -18,8 +18,8 @@ public class InventoryClientApplication {
 	}
 
 	@Bean
-	Supplier<Flux<OrderEvent>> orderEventProducer(Sinks.Many<OrderEvent> sink) {
-		return sink::asFlux;
+	Supplier<Flux<OrderEvent>> orderEventProducer(Sinks.Many<OrderEvent> orderEventSink) {
+		return orderEventSink::asFlux;
 	}
 
 	@Bean

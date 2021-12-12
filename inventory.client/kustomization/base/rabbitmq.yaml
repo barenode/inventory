@@ -1,0 +1,38 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: test-exchange
+  namespace: rabbitmq
+spec:
+  name: test-exchange # name of the exchange
+  type: direct # default to 'direct' if not provided; can be set to 'direct', 'fanout', 'headers', and 'topic'
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: rabbitmq # cluster name
+    namespace: rabbitmq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: test-queue # name of this custom resource; does not have to the same as the actual queue name
+  namespace: rabbitmq
+spec:
+  name: test-queue # name of the queue
+  rabbitmqClusterReference:
+    name: rabbitmq # cluster name
+    namespace: rabbitmq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Binding
+metadata:
+  name: test-binding
+  namespace: rabbitmq
+spec:
+  source: test-exchange # an existing exchange
+  destination: test-queue # an existing queue
+  destinationType: queue # can be 'queue' or 'exchange'
+  routingKey: v2
+  rabbitmqClusterReference:
+    name: rabbitmq # cluster name
+    namespace: rabbitmq

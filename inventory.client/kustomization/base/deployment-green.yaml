@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-client-green
+  labels:
+    app: inventory-client-green
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: inventory-client-green
+  template:
+    metadata:
+      labels:
+        app: inventory-client-green
+    spec:
+      containers:
+      - name: inventory-client-green
+        image: hylmar/inventory-client:GREEN
+        imagePullPolicy: Always
+        env:
+          - name: INSTANCE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: RABBITMQ_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: inventory-client-configmap
+                key: RABBITMQ_HOST
+          - name: RABBITMQ_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: inventory-client-configmap
+                key: RABBITMQ_PORT
+          - name: RABBITMQ_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: inventory-client-configmap
+                key: RABBITMQ_USERNAME
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: inventory-client-configmap
+                key: RABBITMQ_PASSWORD

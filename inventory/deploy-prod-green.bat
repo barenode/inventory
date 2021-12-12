@@ -3,7 +3,7 @@ for /f "delims=" %%A in ('"mvn help:evaluate -Dexpression=project.version -q -Df
 @echo on
 echo version green is %version_green%
 
-for /f "delims=" %%A in (k8s/.ver) do set version_blue=%%A
+for /f "delims=" %%A in (../k8s/inventory/.ver) do set version_blue=%%A
 echo version blue is %version_blue%
 
 call mvn clean install

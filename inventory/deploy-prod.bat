@@ -2,7 +2,7 @@
 for /f "delims=" %%A in ('"mvn help:evaluate -Dexpression=project.version -q -DforceStdout"') do set version=%%A
 @echo on
 echo version is %version%
-echo %version% > k8s/.ver
+echo %version% > ../k8s/inventory/.ver
 
 call mvn install
 

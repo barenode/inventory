@@ -21,9 +21,13 @@ spring:
         proc-in-0:
           contentType: application/json
           destination: inventory-in
-          group: inventory
-      
+          group: v1
 
+      rabbit:
+        bindings:
+          proc-in-0:
+            bindQueue: false
+            declareExchange: false
 
 
 

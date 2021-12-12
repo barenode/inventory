@@ -27,10 +27,13 @@ public class InventoryClientApplication {
 
 	@Bean
 	Consumer<OrderEvent> orderEventConsumer(Sinks.Many<OrderEvent> orderEventSink) {
-		return (e) ->  orderEventSink.emitNext(e, (signalType, emission) -> {
-			logger.info("signalType [" + signalType + "], emission: " + emission);
-			return false;
-		});
+		return (e) ->  {
+			logger.info("emiting event ...");
+			orderEventSink.emitNext(e, (signalType, emission) -> {
+				logger.info("signalType [" + signalType + "], emission: " + emission);
+				return false;
+			});
+		};
 	}
 
 	public static void main(String[] args) {

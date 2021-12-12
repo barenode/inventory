@@ -29,6 +29,7 @@ metadata:
   name: inventory
 spec:
   replicas: 3
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: inventory
@@ -66,7 +67,6 @@ spec:
         image: hylmar/inventory:1.0.20-SNAPSHOT
         imagePullPolicy: Always
         name: inventory
-      revisionHistoryLimit: 0
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -76,6 +76,7 @@ metadata:
   name: inventory-green
 spec:
   replicas: 0
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: inventory-green
@@ -113,7 +114,6 @@ spec:
         image: hylmar/inventory:1.0.20-SNAPSHOT
         imagePullPolicy: Never
         name: inventory-green
-      revisionHistoryLimit: 0
 ---
 apiVersion: rabbitmq.com/v1beta1
 kind: Binding

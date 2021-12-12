@@ -5,8 +5,8 @@ metadata:
   labels:
     app: inventory-green
 spec:
-  # Scaling
   replicas: 1
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: inventory-green
@@ -15,7 +15,6 @@ spec:
       labels:
         app: inventory-green
     spec:
-      revisionHistoryLimit: 0
       containers:
       - name: inventory-green
         image: hylmar/inventory:GREEN

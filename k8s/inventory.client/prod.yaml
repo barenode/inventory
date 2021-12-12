@@ -64,7 +64,7 @@ spec:
             configMapKeyRef:
               key: RABBITMQ_PASSWORD
               name: inventory-client-configmap
-        image: hylmar/inventory-client:1.0.5-SNAPSHOT
+        image: hylmar/inventory-client:1.0.6-SNAPSHOT
         imagePullPolicy: Always
         name: inventory-client
 ---
@@ -111,7 +111,7 @@ spec:
             configMapKeyRef:
               key: RABBITMQ_PASSWORD
               name: inventory-client-configmap
-        image: hylmar/inventory-client:1.0.5-SNAPSHOT
+        image: hylmar/inventory-client:1.0.6-SNAPSHOT
         imagePullPolicy: Never
         name: inventory-client-green
 ---

@@ -1,0 +1,153 @@
+apiVersion: v1
+data:
+  RABBITMQ_HOST: rabbitmq.rabbitmq
+  RABBITMQ_PASSWORD: UM944fqb265dM4GtGFPPCI9rZZPIUosD
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_USERNAME: default_user_D3Iwgkfj1qy8Fdseip9
+kind: ConfigMap
+metadata:
+  name: inventory-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: inventory
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: inventory
+  name: inventory
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: inventory
+  template:
+    metadata:
+      labels:
+        app: inventory
+    spec:
+      containers:
+      - env:
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: RABBITMQ_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_HOST
+              name: inventory-configmap
+        - name: RABBITMQ_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_PORT
+              name: inventory-configmap
+        - name: RABBITMQ_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_USERNAME
+              name: inventory-configmap
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_PASSWORD
+              name: inventory-configmap
+        image: hylmar/inventory:1.0.19-SNAPSHOT
+        imagePullPolicy: Always
+        name: inventory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: inventory-green
+  name: inventory-green
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: inventory-green
+  template:
+    metadata:
+      labels:
+        app: inventory-green
+    spec:
+      containers:
+      - env:
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: RABBITMQ_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_HOST
+              name: inventory-configmap
+        - name: RABBITMQ_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_PORT
+              name: inventory-configmap
+        - name: RABBITMQ_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_USERNAME
+              name: inventory-configmap
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: RABBITMQ_PASSWORD
+              name: inventory-configmap
+        image: hylmar/inventory:1.0.19-SNAPSHOT
+        imagePullPolicy: Never
+        name: inventory-green
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Binding
+metadata:
+  name: test-binding
+  namespace: rabbitmq
+spec:
+  destination: test-queue
+  destinationType: queue
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+  routingKey: v2
+  source: test-exchange
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: test-exchange
+  namespace: rabbitmq
+spec:
+  autoDelete: false
+  durable: true
+  name: test-exchange
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+  type: direct
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: test-queue
+  namespace: rabbitmq
+spec:
+  name: test-queue
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq

@@ -3,17 +3,17 @@ spring:
   application:
     name: inventory-client
 
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-
 #  rabbitmq:
-#    host: ${RABBITMQ_HOST}
-#    port: ${RABBITMQ_PORT}
-#    username: ${RABBITMQ_USERNAME}
-#    password: ${RABBITMQ_PASSWORD}
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
 
   cloud:
     stream:

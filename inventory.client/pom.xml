@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>cz.aag</groupId>
 	<artifactId>inventory-client</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>inventory client</name>
 
 	<properties>

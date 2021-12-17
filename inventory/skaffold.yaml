@@ -3,6 +3,8 @@ kind: Config
 metadata:
   name: inventory
 build:
+  local:
+    push: true
   artifacts:
   - image: hylmar/inventory
     context: .
@@ -11,4 +13,4 @@ build:
 deploy:
   kustomize:
     paths:
-    - kustomization/base
+    - kustomization/overlays/dev

@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: inventory-configmap
+data:
+  RABBITMQ_HOST: rabbitmq.rabbitmq
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_USERNAME: default_user_11Z8uPJzmTB3gd42TOE
+  RABBITMQ_PASSWORD: S1QTic3fW9IB9GLaGdyz3C3JSvoUVU4V

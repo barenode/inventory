@@ -1,38 +1,166 @@
 apiVersion: rabbitmq.com/v1beta1
 kind: Exchange
 metadata:
-  name: test-exchange
+  name: inventory-in-dlq
   namespace: rabbitmq
 spec:
-  name: test-exchange # name of the exchange
-  type: direct # default to 'direct' if not provided; can be set to 'direct', 'fanout', 'headers', and 'topic'
+  name: inventory-in-dlq
+  type: fanout
   autoDelete: false
   durable: true
   rabbitmqClusterReference:
-    name: rabbitmq # cluster name
+    name: rabbitmq
     namespace: rabbitmq
 ---
 apiVersion: rabbitmq.com/v1beta1
 kind: Queue
 metadata:
-  name: test-queue # name of this custom resource; does not have to the same as the actual queue name
+  name: inventory-in-dlq.dlq
   namespace: rabbitmq
 spec:
-  name: test-queue # name of the queue
+  name: inventory-in-dlq.dlq
+  autoDelete: false
+  durable: true
   rabbitmqClusterReference:
-    name: rabbitmq # cluster name
+    name: rabbitmq
     namespace: rabbitmq
 ---
 apiVersion: rabbitmq.com/v1beta1
 kind: Binding
 metadata:
-  name: test-binding
+  name: inventory-in-dlq-dlq
   namespace: rabbitmq
 spec:
-  source: test-exchange # an existing exchange
-  destination: test-queue # an existing queue
-  destinationType: queue # can be 'queue' or 'exchange'
-  routingKey: v2
+  source: inventory-in-dlq
+  destination: inventory-in-dlq.dlq
+  destinationType: queue
   rabbitmqClusterReference:
-    name: rabbitmq # cluster name
+    name: rabbitmq
+    namespace: rabbitmq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: inventory-in
+  namespace: rabbitmq
+spec:
+  name: inventory-in
+  type: direct
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+  arguments:
+    alternate-exchange: inventory-in-dlq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: inventory-out-dlq
+  namespace: rabbitmq
+spec:
+  name: inventory-out-dlq
+  type: fanout
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: inventory-out-dlq.dlq
+  namespace: rabbitmq
+spec:
+  name: inventory-out-dlq.dlq
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Binding
+metadata:
+  name: inventory-out-dlq-dlq
+  namespace: rabbitmq
+spec:
+  source: inventory-out-dlq
+  destination: inventory-out-dlq.dlq
+  destinationType: queue
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: inventory-out
+  namespace: rabbitmq
+spec:
+  name: inventory-out
+  type: direct
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+  arguments:
+    alternate-exchange: inventory-out-dlq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: inventory-cmd-out
+  namespace: rabbitmq
+spec:
+  name: inventory-cmd-out
+  type: direct
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: inventory-cmd-in
+  namespace: rabbitmq
+spec:
+  name: inventory-cmd-in
+  type: direct
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: inventory-cmd-in-v2
+  namespace: rabbitmq
+spec:
+  name: inventory-cmd-in-v2
+  type: direct
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: rabbitmq
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Binding
+metadata:
+  name: inventory-cmd-binding
+  namespace: rabbitmq
+spec:
+  source: inventory-cmd-out
+  destination: inventory-cmd-in
+  destinationType: exchange
+  rabbitmqClusterReference:
+    name: rabbitmq
     namespace: rabbitmq

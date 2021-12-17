@@ -2,33 +2,56 @@ spring:
 
   application:
     name: inventory
+    schemaVersion: "1.0"
 
   rabbitmq:
-    host: ${RABBITMQ_HOST}
-    port: ${RABBITMQ_PORT}
-    username: ${RABBITMQ_USERNAME}
-    password: ${RABBITMQ_PASSWORD}
+   host: ${RABBITMQ_HOST}
+   port: ${RABBITMQ_PORT}
+   username: ${RABBITMQ_USERNAME}
+   password: ${RABBITMQ_PASSWORD}
 
   cloud:
     stream:
       function:
-        definition: proc
+        definition: producer;proc
 
       bindings:
+
+        # testing queue
+        producer-out-0:
+          contentType: application/json
+          destination: inventory-in
+          group: ${spring.application.schemaVersion}
+
         proc-out-0:
           contentType: application/json
           destination: inventory-out
         proc-in-0:
           contentType: application/json
           destination: inventory-in
-          group: v3
+          group: ${spring.application.schemaVersion}
 
       rabbit:
         bindings:
+
+          # testing queue
+          producer-out-0:
+            producer:
+              exchangeType: direct
+              declareExchange: false
+              routingKeyExpression: '''${spring.application.schemaVersion}'''
+
           proc-in-0:
             consumer:
-              bindQueue: false
+              exchangeType: direct
               declareExchange: false
+              bindQueue: true
+              bindingRoutingKey: ${spring.application.schemaVersion}
+          proc-out-0:
+            producer:
+              exchangeType: direct
+              declareExchange: false
+              routingKeyExpression: '''${spring.application.schemaVersion}'''
 
 
 
